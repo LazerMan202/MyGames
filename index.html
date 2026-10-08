@@ -1,0 +1,1496 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyGames 1.0</title>
+
+<style>
+:root{
+  --bg:#f4f6f9;
+  --panel:#ffffff;
+  --panel2:#f8f9fb;
+  --text:#18212b;
+  --muted:#6d7885;
+  --border:#e0e5eb;
+  --accent:#4d7cff;
+  --accent2:#6d5ce7;
+  --hover:#eef2ff;
+  --danger:#e05252;
+  --shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+body.dark{
+  --bg:#10141b;
+  --panel:#181e27;
+  --panel2:#202732;
+  --text:#f1f4f8;
+  --muted:#9ca8b5;
+  --border:#303946;
+  --hover:#252d3a;
+  --shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  width:245px;
+  background:var(--panel);
+  border-right:1px solid var(--border);
+  padding:22px 15px;
+  z-index:20;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:800;
+  padding:5px 12px 25px;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.nav button{
+  border:0;
+  background:transparent;
+  color:var(--text);
+  text-align:left;
+  padding:12px 14px;
+  border-radius:10px;
+  font-size:15px;
+}
+
+.nav button:hover,
+.nav button.active{
+  background:var(--hover);
+  color:var(--accent);
+}
+
+.sidebar-bottom{
+  position:absolute;
+  left:15px;
+  right:15px;
+  bottom:20px;
+}
+
+.myworld-link{
+  width:100%;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  padding:10px;
+  border-radius:9px;
+  margin-bottom:8px;
+}
+
+/* MOBILE HEADER */
+
+.mobile-header{
+  display:none;
+}
+
+/* MAIN */
+
+.main{
+  margin-left:245px;
+  padding:35px;
+  max-width:1450px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+/* HERO */
+
+.hero{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;
+  border-radius:18px;
+  padding:30px;
+  margin-bottom:25px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero h1{
+  font-size:31px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  opacity:.9;
+  font-size:15px;
+}
+
+.hero-icon{
+  position:absolute;
+  right:35px;
+  top:18px;
+  font-size:80px;
+  opacity:.25;
+}
+
+/* CARDS */
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.section-title{
+  font-size:20px;
+  margin-bottom:15px;
+}
+
+/* GAME GRID */
+
+.game-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fill,minmax(230px,1fr));
+  gap:18px;
+}
+
+.game-card{
+  overflow:hidden;
+  padding:0;
+  transition:.18s;
+}
+
+.game-card:hover{
+  transform:translateY(-4px);
+}
+
+.game-banner{
+  height:130px;
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:55px;
+}
+
+.game-info{
+  padding:18px;
+}
+
+.game-info h3{
+  margin-bottom:7px;
+}
+
+.game-info p{
+  color:var(--muted);
+  font-size:14px;
+  min-height:40px;
+}
+
+.game-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
+
+.primary{
+  border:0;
+  background:var(--accent);
+  color:white;
+  padding:10px 15px;
+  border-radius:9px;
+  font-weight:bold;
+  flex:1;
+}
+
+.secondary{
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  padding:10px 15px;
+  border-radius:9px;
+}
+
+.primary:hover{
+  opacity:.9;
+}
+
+.secondary:hover{
+  background:var(--hover);
+}
+
+/* SEARCH */
+
+.search-box{
+  width:100%;
+  padding:13px 15px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--panel);
+  color:var(--text);
+  outline:none;
+  margin-bottom:20px;
+}
+
+.search-box:focus{
+  border-color:var(--accent);
+}
+
+/* CATEGORY BUTTONS */
+
+.categories{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.category{
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  padding:8px 13px;
+  border-radius:20px;
+}
+
+.category.active,
+.category:hover{
+  background:var(--hover);
+  color:var(--accent);
+  border-color:var(--accent);
+}
+
+/* FAVORITES */
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:35px 20px;
+}
+
+/* SETTINGS */
+
+.setting-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.setting-row:last-child{
+  border-bottom:0;
+}
+
+.setting-description{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:4px;
+}
+
+.toggle{
+  width:48px;
+  height:26px;
+  border-radius:20px;
+  border:0;
+  background:#aaa;
+  position:relative;
+}
+
+.toggle::after{
+  content:"";
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:white;
+  position:absolute;
+  top:3px;
+  left:4px;
+  transition:.2s;
+}
+
+.toggle.on{
+  background:var(--accent);
+}
+
+.toggle.on::after{
+  left:24px;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.stat{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px;
+}
+
+.stat-icon{
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.stat-number{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.2s;
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+    padding:20px;
+    padding-top:75px;
+  }
+
+  .mobile-header{
+    display:flex;
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    height:60px;
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    align-items:center;
+    padding:0 15px;
+    z-index:10;
+  }
+
+  .menu-btn{
+    border:0;
+    background:transparent;
+    color:var(--text);
+    font-size:25px;
+    margin-right:12px;
+  }
+
+  .mobile-title{
+    font-weight:bold;
+    font-size:19px;
+  }
+
+  .hero h1{
+    font-size:25px;
+    max-width:70%;
+  }
+
+  .hero-icon{
+    right:12px;
+    top:25px;
+  }
+}
+
+@media(max-width:500px){
+
+  .main{
+    padding:15px;
+    padding-top:70px;
+  }
+
+  .hero{
+    padding:22px;
+  }
+
+  .game-grid{
+    grid-template-columns:1fr;
+  }
+
+  .game-buttons{
+    flex-direction:column;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- MOBILE HEADER -->
+
+<div class="mobile-header">
+  <button
+    class="menu-btn"
+    onclick="toggleSidebar()">
+    ☰
+  </button>
+
+  <div class="mobile-title">
+    🎮 MyGames
+  </div>
+</div>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+    🎮 MyGames
+  </div>
+
+  <nav class="nav">
+
+    <button
+      class="active"
+      onclick="showPage('home',this)">
+      🏠 Home
+    </button>
+
+    <button
+      onclick="showPage('library',this)">
+      🎮 Game Library
+    </button>
+
+    <button
+      onclick="showPage('favorites',this)">
+      ⭐ Favorites
+    </button>
+
+    <button
+      onclick="showPage('recent',this)">
+      🕘 Recently Played
+    </button>
+
+    <button
+      onclick="showPage('settings',this)">
+      ⚙️ Settings
+    </button>
+
+  </nav>
+
+  <div class="sidebar-bottom">
+
+    <button
+      class="myworld-link"
+      onclick="goToMyWorld()">
+      🌎 Back to MyWorld
+    </button>
+
+  </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+  <!-- HOME -->
+
+  <section
+    class="page active"
+    id="page-home">
+
+    <div class="hero">
+
+      <div class="hero-icon">
+        🎮
+      </div>
+
+      <h1>
+        Welcome to MyGames
+      </h1>
+
+      <p>
+        Your personal collection of games.
+      </p>
+
+    </div>
+
+
+    <div class="stats">
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          🎮
+        </div>
+
+        <div
+          class="stat-number"
+          id="totalGames">
+          0
+        </div>
+
+        <div class="stat-label">
+          Games
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          ⭐
+        </div>
+
+        <div
+          class="stat-number"
+          id="favoriteCount">
+          0
+        </div>
+
+        <div class="stat-label">
+          Favorites
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          🕘
+        </div>
+
+        <div
+          class="stat-number"
+          id="recentCount">
+          0
+        </div>
+
+        <div class="stat-label">
+          Played
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <h2 class="section-title">
+      Featured Games
+    </h2>
+
+
+    <div
+      class="game-grid"
+      id="featuredGames">
+    </div>
+
+  </section>
+
+
+  <!-- LIBRARY -->
+
+  <section
+    class="page"
+    id="page-library">
+
+    <div class="hero">
+
+      <div class="hero-icon">
+        🎮
+      </div>
+
+      <h1>
+        Game Library
+      </h1>
+
+      <p>
+        All your games in one place.
+      </p>
+
+    </div>
+
+
+    <input
+      class="search-box"
+      id="searchInput"
+      placeholder="🔎 Search games..."
+      oninput="renderLibrary()"
+    >
+
+
+    <div class="categories">
+
+      <button
+        class="category active"
+        onclick="setCategory('All',this)">
+        All
+      </button>
+
+      <button
+        class="category"
+        onclick="setCategory('Action',this)">
+        Action
+      </button>
+
+      <button
+        class="category"
+        onclick="setCategory('Adventure',this)">
+        Adventure
+      </button>
+
+      <button
+        class="category"
+        onclick="setCategory('Sandbox',this)">
+        Sandbox
+      </button>
+
+      <button
+        class="category"
+        onclick="setCategory('Puzzle',this)">
+        Puzzle
+      </button>
+
+      <button
+        class="category"
+        onclick="setCategory('Other',this)">
+        Other
+      </button>
+
+    </div>
+
+
+    <div
+      class="game-grid"
+      id="libraryGames">
+    </div>
+
+  </section>
+
+
+  <!-- FAVORITES -->
+
+  <section
+    class="page"
+    id="page-favorites">
+
+    <div class="hero">
+
+      <div class="hero-icon">
+        ⭐
+      </div>
+
+      <h1>
+        Favorites
+      </h1>
+
+      <p>
+        Your favorite games.
+      </p>
+
+    </div>
+
+
+    <div
+      class="game-grid"
+      id="favoriteGames">
+    </div>
+
+  </section>
+
+
+  <!-- RECENT -->
+
+  <section
+    class="page"
+    id="page-recent">
+
+    <div class="hero">
+
+      <div class="hero-icon">
+        🕘
+      </div>
+
+      <h1>
+        Recently Played
+      </h1>
+
+      <p>
+        Games you've recently opened.
+      </p>
+
+    </div>
+
+
+    <div
+      class="game-grid"
+      id="recentGames">
+    </div>
+
+  </section>
+
+
+  <!-- SETTINGS -->
+
+  <section
+    class="page"
+    id="page-settings">
+
+    <div class="hero">
+
+      <div class="hero-icon">
+        ⚙️
+      </div>
+
+      <h1>
+        Settings
+      </h1>
+
+      <p>
+        Customize your MyGames experience.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="setting-row">
+
+        <div>
+
+          <strong>
+            Dark Mode
+          </strong>
+
+          <div class="setting-description">
+            Switch between light and dark themes.
+          </div>
+
+        </div>
+
+        <button
+          class="toggle"
+          id="darkToggle"
+          onclick="toggleDarkMode()">
+        </button>
+
+      </div>
+
+
+      <div class="setting-row">
+
+        <div>
+
+          <strong>
+            Game Count
+          </strong>
+
+          <div class="setting-description">
+            Games currently available in MyGames.
+          </div>
+
+        </div>
+
+        <strong id="settingsGameCount">
+          0
+        </strong>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+/* =========================================
+   GAME DATA
+========================================= */
+
+const games = [
+
+  {
+    id:"blockweb",
+    name:"BlockWeb",
+    icon:"🧱",
+    category:"Sandbox",
+    description:
+      "Build and explore your browser-based block world.",
+    url:
+      "https://lazerman202.github.io/BlockWeb/"
+  },
+
+  {
+    id:"mychat",
+    name:"MyChat",
+    icon:"💬",
+    category:"Other",
+    description:
+      "Your communication platform.",
+    url:
+      "https://lazerman202.github.io/MyChat/"
+  },
+
+  {
+    id:"coming1",
+    name:"MyGame 1",
+    icon:"🎮",
+    category:"Action",
+    description:
+      "A future game for your collection.",
+    url:"#"
+  },
+
+  {
+    id:"coming2",
+    name:"MyGame 2",
+    icon:"🕹️",
+    category:"Adventure",
+    description:
+      "Another game coming to MyGames.",
+    url:"#"
+  },
+
+  {
+    id:"coming3",
+    name:"Puzzle Game",
+    icon:"🧩",
+    category:"Puzzle",
+    description:
+      "A future puzzle game.",
+    url:"#"
+  }
+
+];
+
+
+/* =========================================
+   STATE
+========================================= */
+
+let currentCategory = "All";
+
+let favorites =
+  JSON.parse(
+    localStorage.getItem("mygamesFavorites") || "[]"
+  );
+
+let recentlyPlayed =
+  JSON.parse(
+    localStorage.getItem("mygamesRecent") || "[]"
+  );
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+if(
+  localStorage.getItem("mygamesDark") === "true"
+){
+  document.body.classList.add("dark");
+}
+
+updateDarkToggle();
+
+
+function toggleDarkMode(){
+
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "mygamesDark",
+    document.body.classList.contains("dark")
+  );
+
+  updateDarkToggle();
+
+}
+
+
+function updateDarkToggle(){
+
+  const toggle =
+    document.getElementById("darkToggle");
+
+  if(toggle){
+
+    toggle.classList.toggle(
+      "on",
+      document.body.classList.contains("dark")
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function showPage(page,button){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p=>{
+      p.classList.remove("active");
+    });
+
+
+  const target =
+    document.getElementById(
+      "page-" + page
+    );
+
+
+  if(target){
+    target.classList.add("active");
+  }
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(b=>{
+      b.classList.remove("active");
+    });
+
+
+  if(button){
+    button.classList.add("active");
+  }
+
+
+  if(page === "library"){
+    renderLibrary();
+  }
+
+  if(page === "favorites"){
+    renderFavorites();
+  }
+
+  if(page === "recent"){
+    renderRecent();
+  }
+
+
+  if(window.innerWidth <= 800){
+    document
+      .getElementById("sidebar")
+      .classList.remove("open");
+  }
+
+}
+
+
+/* =========================================
+   MOBILE SIDEBAR
+========================================= */
+
+function toggleSidebar(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+/* =========================================
+   GAME CARD
+========================================= */
+
+function createGameCard(game){
+
+  const card =
+    document.createElement("div");
+
+  card.className =
+    "card game-card";
+
+
+  const banner =
+    document.createElement("div");
+
+  banner.className =
+    "game-banner";
+
+  banner.textContent =
+    game.icon;
+
+
+  const info =
+    document.createElement("div");
+
+  info.className =
+    "game-info";
+
+
+  const title =
+    document.createElement("h3");
+
+  title.textContent =
+    game.name;
+
+
+  const description =
+    document.createElement("p");
+
+  description.textContent =
+    game.description;
+
+
+  const buttons =
+    document.createElement("div");
+
+  buttons.className =
+    "game-buttons";
+
+
+  const play =
+    document.createElement("button");
+
+  play.className =
+    "primary";
+
+  play.textContent =
+    game.url === "#"
+      ? "Coming Soon"
+      : "Open";
+
+
+  play.onclick = function(){
+
+    openGame(game);
+
+  };
+
+
+  const favorite =
+    document.createElement("button");
+
+  favorite.className =
+    "secondary";
+
+  favorite.textContent =
+    favorites.includes(game.id)
+      ? "★"
+      : "☆";
+
+  favorite.title =
+    favorites.includes(game.id)
+      ? "Remove from favorites"
+      : "Add to favorites";
+
+
+  favorite.onclick = function(){
+
+    toggleFavorite(game.id);
+
+  };
+
+
+  buttons.appendChild(play);
+
+  buttons.appendChild(favorite);
+
+  info.appendChild(title);
+
+  info.appendChild(description);
+
+  info.appendChild(buttons);
+
+  card.appendChild(banner);
+
+  card.appendChild(info);
+
+  return card;
+
+}
+
+
+/* =========================================
+   FEATURED
+========================================= */
+
+function renderFeatured(){
+
+  const container =
+    document.getElementById(
+      "featuredGames"
+    );
+
+  container.innerHTML = "";
+
+
+  games
+    .slice(0,4)
+    .forEach(game=>{
+
+      container.appendChild(
+        createGameCard(game)
+      );
+
+    });
+
+}
+
+
+/* =========================================
+   LIBRARY
+========================================= */
+
+function renderLibrary(){
+
+  const container =
+    document.getElementById(
+      "libraryGames"
+    );
+
+  const search =
+    (
+      document.getElementById(
+        "searchInput"
+      ).value || ""
+    ).toLowerCase();
+
+
+  container.innerHTML = "";
+
+
+  const filtered =
+    games.filter(game=>{
+
+      const categoryMatch =
+        currentCategory === "All" ||
+        game.category === currentCategory;
+
+
+      const searchMatch =
+        game.name
+          .toLowerCase()
+          .includes(search) ||
+        game.description
+          .toLowerCase()
+          .includes(search);
+
+
+      return categoryMatch && searchMatch;
+
+    });
+
+
+  if(filtered.length === 0){
+
+    container.innerHTML =
+      '<div class="card empty">No games found.</div>';
+
+    return;
+
+  }
+
+
+  filtered.forEach(game=>{
+
+    container.appendChild(
+      createGameCard(game)
+    );
+
+  });
+
+}
+
+
+/* =========================================
+   CATEGORY
+========================================= */
+
+function setCategory(category,button){
+
+  currentCategory =
+    category;
+
+
+  document
+    .querySelectorAll(".category")
+    .forEach(b=>{
+      b.classList.remove("active");
+    });
+
+
+  button.classList.add("active");
+
+  renderLibrary();
+
+}
+
+
+/* =========================================
+   FAVORITES
+========================================= */
+
+function toggleFavorite(id){
+
+  if(favorites.includes(id)){
+
+    favorites =
+      favorites.filter(
+        item=>item !== id
+      );
+
+  }else{
+
+    favorites.push(id);
+
+  }
+
+
+  localStorage.setItem(
+    "mygamesFavorites",
+    JSON.stringify(favorites)
+  );
+
+
+  updateStats();
+
+  renderFeatured();
+
+  renderLibrary();
+
+  renderFavorites();
+
+}
+
+
+function renderFavorites(){
+
+  const container =
+    document.getElementById(
+      "favoriteGames"
+    );
+
+  container.innerHTML = "";
+
+
+  const favoriteGames =
+    games.filter(
+      game=>favorites.includes(game.id)
+    );
+
+
+  if(favoriteGames.length === 0){
+
+    container.innerHTML =
+      '<div class="card empty">You have no favorite games yet.<br><br>Tap ☆ on a game to add it.</div>';
+
+    return;
+
+  }
+
+
+  favoriteGames.forEach(game=>{
+
+    container.appendChild(
+      createGameCard(game)
+    );
+
+  });
+
+}
+
+
+/* =========================================
+   RECENTLY PLAYED
+========================================= */
+
+function openGame(game){
+
+  if(game.url === "#"){
+
+    alert(
+      game.name +
+      " is coming soon!"
+    );
+
+    return;
+
+  }
+
+
+  recentlyPlayed =
+    recentlyPlayed.filter(
+      id=>id !== game.id
+    );
+
+
+  recentlyPlayed.unshift(
+    game.id
+  );
+
+
+  recentlyPlayed =
+    recentlyPlayed.slice(0,10);
+
+
+  localStorage.setItem(
+    "mygamesRecent",
+    JSON.stringify(recentlyPlayed)
+  );
+
+
+  updateStats();
+
+
+  window.location.href =
+    game.url;
+
+}
+
+
+function renderRecent(){
+
+  const container =
+    document.getElementById(
+      "recentGames"
+    );
+
+  container.innerHTML = "";
+
+
+  const recentGames =
+    recentlyPlayed
+      .map(id=>
+        games.find(
+          game=>game.id === id
+        )
+      )
+      .filter(Boolean);
+
+
+  if(recentGames.length === 0){
+
+    container.innerHTML =
+      '<div class="card empty">You haven\'t played anything yet.</div>';
+
+    return;
+
+  }
+
+
+  recentGames.forEach(game=>{
+
+    container.appendChild(
+      createGameCard(game)
+    );
+
+  });
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+function updateStats(){
+
+  document.getElementById(
+    "totalGames"
+  ).textContent =
+    games.length;
+
+
+  document.getElementById(
+    "favoriteCount"
+  ).textContent =
+    favorites.length;
+
+
+  document.getElementById(
+    "recentCount"
+  ).textContent =
+    recentlyPlayed.length;
+
+
+  document.getElementById(
+    "settingsGameCount"
+  ).textContent =
+    games.length;
+
+}
+
+
+/* =========================================
+   MYWORLD
+========================================= */
+
+function goToMyWorld(){
+
+  window.location.href =
+    "https://lazerman202.github.io/MyWorld/";
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+renderFeatured();
+
+renderLibrary();
+
+updateStats();
+
+</script>
+
+</body>
+</html>
+```
