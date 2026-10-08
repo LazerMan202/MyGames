@@ -3,358 +3,212 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyGames 1.0</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MyGames 1.1</title>
 
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
+
 :root{
-  --bg:#f4f6f9;
-  --panel:#ffffff;
-  --panel2:#f8f9fb;
-  --text:#18212b;
-  --muted:#6d7885;
-  --border:#e0e5eb;
-  --accent:#4d7cff;
-  --accent2:#6d5ce7;
-  --hover:#eef2ff;
-  --danger:#e05252;
+  --bg:#f4f6f8;
+  --panel:#fff;
+  --panel2:#eef1f5;
+  --text:#18202a;
+  --muted:#697586;
+  --border:#dce1e7;
+  --accent:#5865f2;
+  --accent2:#4752c4;
+  --danger:#e5484d;
   --shadow:0 8px 25px rgba(0,0,0,.07);
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,Helvetica,sans-serif;
+body.dark{
+  --bg:#111318;
+  --panel:#191c23;
+  --panel2:#222631;
+  --text:#f4f6f8;
+  --muted:#9ca6b5;
+  --border:#303641;
+  --shadow:0 8px 25px rgba(0,0,0,.25);
 }
 
 body{
+  font-family:Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
 }
 
-body.dark{
-  --bg:#10141b;
-  --panel:#181e27;
-  --panel2:#202732;
-  --text:#f1f4f8;
-  --muted:#9ca8b5;
-  --border:#303946;
-  --hover:#252d3a;
-  --shadow:0 8px 25px rgba(0,0,0,.25);
+button,input,textarea,select{font:inherit}
+
+button{
+  cursor:pointer;
+  border:0;
+}
+
+.layout{
+  display:flex;
+  min-height:100vh;
 }
 
 /* SIDEBAR */
-
 .sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
   width:245px;
   background:var(--panel);
   border-right:1px solid var(--border);
   padding:22px 15px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
   z-index:20;
 }
 
 .logo{
   font-size:25px;
   font-weight:800;
-  padding:5px 12px 25px;
+  padding:0 12px 25px;
 }
+
+.logo span{color:var(--accent)}
 
 .nav{
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:5px;
 }
 
 .nav button{
-  border:0;
-  background:transparent;
-  color:var(--text);
+  width:100%;
   text-align:left;
-  padding:12px 14px;
+  padding:13px 14px;
   border-radius:10px;
-  font-size:15px;
+  background:transparent;
+  color:var(--muted);
+  font-weight:600;
 }
 
 .nav button:hover,
 .nav button.active{
-  background:var(--hover);
+  background:var(--panel2);
+  color:var(--text);
+}
+
+.nav button.active{
   color:var(--accent);
 }
 
 .sidebar-bottom{
   position:absolute;
+  bottom:20px;
   left:15px;
   right:15px;
-  bottom:20px;
 }
 
-.myworld-link{
+.theme-btn{
   width:100%;
-  border:1px solid var(--border);
+  padding:11px;
+  border-radius:9px;
   background:var(--panel2);
   color:var(--text);
-  padding:10px;
-  border-radius:9px;
-  margin-bottom:8px;
-}
-
-/* MOBILE HEADER */
-
-.mobile-header{
-  display:none;
 }
 
 /* MAIN */
-
 .main{
   margin-left:245px;
-  padding:35px;
-  max-width:1450px;
+  width:calc(100% - 245px);
+  padding:30px;
 }
 
-.page{
+.mobile-menu{
   display:none;
+  margin-bottom:18px;
+  padding:11px 14px;
+  border-radius:9px;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--border);
 }
 
-.page.active{
-  display:block;
+.section{display:none}
+.section.active{display:block}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.topbar h1{
+  font-size:30px;
+}
+
+.small-muted{
+  color:var(--muted);
+  margin-top:5px;
 }
 
 /* HERO */
-
 .hero{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:white;
+  background:var(--panel);
+  border:1px solid var(--border);
   border-radius:18px;
   padding:30px;
-  margin-bottom:25px;
   box-shadow:var(--shadow);
-  position:relative;
-  overflow:hidden;
+  margin-bottom:25px;
 }
 
-.hero h1{
-  font-size:31px;
+.hero h2{
+  font-size:32px;
   margin-bottom:8px;
 }
 
 .hero p{
-  opacity:.9;
-  font-size:15px;
-}
-
-.hero-icon{
-  position:absolute;
-  right:35px;
-  top:18px;
-  font-size:80px;
-  opacity:.25;
-}
-
-/* CARDS */
-
-.card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:20px;
-  box-shadow:var(--shadow);
-}
-
-.section-title{
-  font-size:20px;
-  margin-bottom:15px;
-}
-
-/* GAME GRID */
-
-.game-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(auto-fill,minmax(230px,1fr));
-  gap:18px;
-}
-
-.game-card{
-  overflow:hidden;
-  padding:0;
-  transition:.18s;
-}
-
-.game-card:hover{
-  transform:translateY(-4px);
-}
-
-.game-banner{
-  height:130px;
-  background:
-    linear-gradient(
-      135deg,
-      var(--accent),
-      var(--accent2)
-    );
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:55px;
-}
-
-.game-info{
-  padding:18px;
-}
-
-.game-info h3{
-  margin-bottom:7px;
-}
-
-.game-info p{
   color:var(--muted);
-  font-size:14px;
-  min-height:40px;
+  max-width:700px;
+  line-height:1.6;
 }
 
-.game-buttons{
+.hero-actions{
   display:flex;
-  gap:8px;
-  margin-top:14px;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px;
 }
 
+/* BUTTONS */
 .primary{
-  border:0;
   background:var(--accent);
   color:white;
-  padding:10px 15px;
+  padding:11px 17px;
   border-radius:9px;
-  font-weight:bold;
-  flex:1;
+  font-weight:700;
 }
+
+.primary:hover{background:var(--accent2)}
 
 .secondary{
-  border:1px solid var(--border);
   background:var(--panel2);
   color:var(--text);
-  padding:10px 15px;
+  padding:11px 17px;
   border-radius:9px;
+  font-weight:700;
 }
 
-.primary:hover{
-  opacity:.9;
-}
-
-.secondary:hover{
-  background:var(--hover);
-}
-
-/* SEARCH */
-
-.search-box{
-  width:100%;
-  padding:13px 15px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  background:var(--panel);
-  color:var(--text);
-  outline:none;
-  margin-bottom:20px;
-}
-
-.search-box:focus{
-  border-color:var(--accent);
-}
-
-/* CATEGORY BUTTONS */
-
-.categories{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
-}
-
-.category{
-  border:1px solid var(--border);
-  background:var(--panel);
-  color:var(--text);
-  padding:8px 13px;
-  border-radius:20px;
-}
-
-.category.active,
-.category:hover{
-  background:var(--hover);
-  color:var(--accent);
-  border-color:var(--accent);
-}
-
-/* FAVORITES */
-
-.empty{
-  text-align:center;
-  color:var(--muted);
-  padding:35px 20px;
-}
-
-/* SETTINGS */
-
-.setting-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.setting-row:last-child{
-  border-bottom:0;
-}
-
-.setting-description{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:4px;
-}
-
-.toggle{
-  width:48px;
-  height:26px;
-  border-radius:20px;
-  border:0;
-  background:#aaa;
-  position:relative;
-}
-
-.toggle::after{
-  content:"";
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background:white;
-  position:absolute;
-  top:3px;
-  left:4px;
-  transition:.2s;
-}
-
-.toggle.on{
-  background:var(--accent);
-}
-
-.toggle.on::after{
-  left:24px;
+.danger{
+  background:var(--danger);
+  color:white;
+  padding:9px 13px;
+  border-radius:8px;
+  font-weight:700;
 }
 
 /* STATS */
-
 .stats{
   display:grid;
-  grid-template-columns:
-    repeat(auto-fit,minmax(180px,1fr));
+  grid-template-columns:repeat(4,1fr);
   gap:15px;
   margin-bottom:25px;
 }
@@ -362,29 +216,336 @@ body.dark{
 .stat{
   background:var(--panel);
   border:1px solid var(--border);
-  border-radius:14px;
+  border-radius:13px;
   padding:20px;
 }
 
-.stat-icon{
-  font-size:25px;
-  margin-bottom:8px;
-}
-
 .stat-number{
-  font-size:28px;
-  font-weight:bold;
+  font-size:27px;
+  font-weight:800;
 }
 
 .stat-label{
   color:var(--muted);
+  margin-top:5px;
+}
+
+/* LIBRARY */
+.toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.search{
+  flex:1;
+  min-width:220px;
+}
+
+.search input,
+.toolbar select,
+.form input,
+.form textarea,
+.form select{
+  width:100%;
+  padding:12px 13px;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:9px;
+  outline:none;
+}
+
+.search input:focus,
+.form input:focus,
+.form textarea:focus,
+.form select:focus{
+  border-color:var(--accent);
+}
+
+.category-buttons{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.category-buttons button{
+  padding:9px 13px;
+  border-radius:8px;
+  background:var(--panel2);
+  color:var(--muted);
+}
+
+.category-buttons button.active{
+  background:var(--accent);
+  color:white;
+}
+
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:18px;
+}
+
+.game-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+}
+
+.game-icon{
+  height:135px;
+  background:var(--panel2);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:55px;
+}
+
+.game-body{
+  padding:17px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+
+.game-body h3{
+  margin-bottom:6px;
+}
+
+.game-body p{
+  color:var(--muted);
+  line-height:1.45;
+  font-size:14px;
+  min-height:42px;
+}
+
+.game-meta{
+  display:flex;
+  justify-content:space-between;
+  margin:12px 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.game-actions{
+  display:flex;
+  gap:7px;
+  margin-top:auto;
+}
+
+.game-actions button{
+  flex:1;
+}
+
+.empty{
+  text-align:center;
+  padding:45px 20px;
+  color:var(--muted);
+  grid-column:1/-1;
+}
+
+/* CREATOR */
+.creator-layout{
+  display:grid;
+  grid-template-columns:330px 1fr;
+  gap:20px;
+}
+
+.creator-panel,
+.editor-panel,
+.preview-panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px;
+}
+
+.creator-panel h2,
+.editor-panel h2,
+.preview-panel h2{
+  margin-bottom:16px;
+}
+
+.form{
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+}
+
+.form label{
+  font-size:13px;
+  font-weight:700;
+  color:var(--muted);
+}
+
+.form textarea{
+  min-height:85px;
+  resize:vertical;
+}
+
+.template-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+
+.template{
+  padding:11px 8px;
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:8px;
   font-size:13px;
 }
 
+.template:hover{
+  outline:2px solid var(--accent);
+}
+
+.editor-area{
+  min-height:420px;
+  width:100%;
+  resize:vertical;
+  background:#11151b;
+  color:#e8edf3;
+  border:1px solid #303641;
+  border-radius:10px;
+  padding:15px;
+  font-family:Consolas,Monaco,monospace;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.creator-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.preview-panel{
+  margin-top:20px;
+}
+
+.preview-frame{
+  width:100%;
+  height:450px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:white;
+}
+
+.code-help{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  margin-top:10px;
+}
+
+/* MY GAMES */
+.saved-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.saved-item{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.saved-info{
+  min-width:0;
+}
+
+.saved-info h3{
+  margin-bottom:5px;
+}
+
+.saved-info p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.saved-actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+/* SETTINGS */
+.setting-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:20px;
+  margin-bottom:15px;
+}
+
+.setting-card h3{
+  margin-bottom:7px;
+}
+
+.setting-card p{
+  color:var(--muted);
+  line-height:1.5;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:100;
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+  background:var(--panel);
+  color:var(--text);
+  width:min(800px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border-radius:15px;
+  padding:22px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.close{
+  width:38px;
+  height:38px;
+  border-radius:8px;
+  background:var(--panel2);
+  color:var(--text);
+  font-size:20px;
+}
+
 /* MOBILE */
-
-@media(max-width:800px){
-
+@media(max-width:850px){
   .sidebar{
     transform:translateX(-100%);
     transition:.2s;
@@ -396,1098 +557,1475 @@ body.dark{
 
   .main{
     margin-left:0;
-    padding:20px;
-    padding-top:75px;
+    width:100%;
+    padding:18px;
   }
 
-  .mobile-header{
-    display:flex;
-    position:fixed;
-    left:0;
-    right:0;
-    top:0;
-    height:60px;
-    background:var(--panel);
-    border-bottom:1px solid var(--border);
-    align-items:center;
-    padding:0 15px;
-    z-index:10;
+  .mobile-menu{
+    display:block;
   }
 
-  .menu-btn{
-    border:0;
-    background:transparent;
-    color:var(--text);
-    font-size:25px;
-    margin-right:12px;
+  .stats{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .mobile-title{
-    font-weight:bold;
-    font-size:19px;
-  }
-
-  .hero h1{
-    font-size:25px;
-    max-width:70%;
-  }
-
-  .hero-icon{
-    right:12px;
-    top:25px;
+  .creator-layout{
+    grid-template-columns:1fr;
   }
 }
 
-@media(max-width:500px){
+@media(max-width:550px){
+  .topbar h1{font-size:24px}
 
-  .main{
-    padding:15px;
-    padding-top:70px;
-  }
+  .hero h2{font-size:25px}
 
-  .hero{
-    padding:22px;
+  .stats{
+    grid-template-columns:1fr 1fr;
   }
 
   .game-grid{
     grid-template-columns:1fr;
   }
 
-  .game-buttons{
+  .saved-item{
+    align-items:flex-start;
     flex-direction:column;
   }
 
+  .saved-actions{
+    width:100%;
+  }
+
+  .saved-actions button{
+    flex:1;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- MOBILE HEADER -->
+<div class="layout">
 
-<div class="mobile-header">
-  <button
-    class="menu-btn"
-    onclick="toggleSidebar()">
-    ☰
-  </button>
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">🎮 My<span>Games</span></div>
 
-  <div class="mobile-title">
-    🎮 MyGames
-  </div>
-</div>
+    <nav class="nav">
+      <button class="active" data-page="home">🏠 Home</button>
+      <button data-page="library">🎮 Game Library</button>
+      <button data-page="creator">🛠️ Create Game</button>
+      <button data-page="mygames">📦 My Games</button>
+      <button data-page="favorites">⭐ Favorites</button>
+      <button data-page="recent">🕘 Recently Played</button>
+      <button data-page="settings">⚙️ Settings</button>
+    </nav>
 
-
-<!-- SIDEBAR -->
-
-<aside class="sidebar" id="sidebar">
-
-  <div class="logo">
-    🎮 MyGames
-  </div>
-
-  <nav class="nav">
-
-    <button
-      class="active"
-      onclick="showPage('home',this)">
-      🏠 Home
-    </button>
-
-    <button
-      onclick="showPage('library',this)">
-      🎮 Game Library
-    </button>
-
-    <button
-      onclick="showPage('favorites',this)">
-      ⭐ Favorites
-    </button>
-
-    <button
-      onclick="showPage('recent',this)">
-      🕘 Recently Played
-    </button>
-
-    <button
-      onclick="showPage('settings',this)">
-      ⚙️ Settings
-    </button>
-
-  </nav>
-
-  <div class="sidebar-bottom">
-
-    <button
-      class="myworld-link"
-      onclick="goToMyWorld()">
-      🌎 Back to MyWorld
-    </button>
-
-  </div>
-
-</aside>
-
-
-<!-- MAIN -->
-
-<main class="main">
-
-
-  <!-- HOME -->
-
-  <section
-    class="page active"
-    id="page-home">
-
-    <div class="hero">
-
-      <div class="hero-icon">
-        🎮
-      </div>
-
-      <h1>
-        Welcome to MyGames
-      </h1>
-
-      <p>
-        Your personal collection of games.
-      </p>
-
+    <div class="sidebar-bottom">
+      <button class="theme-btn" id="themeBtn">🌙 Dark Mode</button>
     </div>
+  </aside>
 
+  <main class="main">
 
-    <div class="stats">
+    <button class="mobile-menu" id="mobileMenu">☰ Menu</button>
 
-      <div class="stat">
+    <!-- HOME -->
+    <section class="section active" id="home">
 
-        <div class="stat-icon">
-          🎮
-        </div>
-
-        <div
-          class="stat-number"
-          id="totalGames">
-          0
-        </div>
-
-        <div class="stat-label">
-          Games
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-icon">
-          ⭐
-        </div>
-
-        <div
-          class="stat-number"
-          id="favoriteCount">
-          0
-        </div>
-
-        <div class="stat-label">
-          Favorites
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-icon">
-          🕘
-        </div>
-
-        <div
-          class="stat-number"
-          id="recentCount">
-          0
-        </div>
-
-        <div class="stat-label">
-          Played
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <h2 class="section-title">
-      Featured Games
-    </h2>
-
-
-    <div
-      class="game-grid"
-      id="featuredGames">
-    </div>
-
-  </section>
-
-
-  <!-- LIBRARY -->
-
-  <section
-    class="page"
-    id="page-library">
-
-    <div class="hero">
-
-      <div class="hero-icon">
-        🎮
-      </div>
-
-      <h1>
-        Game Library
-      </h1>
-
-      <p>
-        All your games in one place.
-      </p>
-
-    </div>
-
-
-    <input
-      class="search-box"
-      id="searchInput"
-      placeholder="🔎 Search games..."
-      oninput="renderLibrary()"
-    >
-
-
-    <div class="categories">
-
-      <button
-        class="category active"
-        onclick="setCategory('All',this)">
-        All
-      </button>
-
-      <button
-        class="category"
-        onclick="setCategory('Action',this)">
-        Action
-      </button>
-
-      <button
-        class="category"
-        onclick="setCategory('Adventure',this)">
-        Adventure
-      </button>
-
-      <button
-        class="category"
-        onclick="setCategory('Sandbox',this)">
-        Sandbox
-      </button>
-
-      <button
-        class="category"
-        onclick="setCategory('Puzzle',this)">
-        Puzzle
-      </button>
-
-      <button
-        class="category"
-        onclick="setCategory('Other',this)">
-        Other
-      </button>
-
-    </div>
-
-
-    <div
-      class="game-grid"
-      id="libraryGames">
-    </div>
-
-  </section>
-
-
-  <!-- FAVORITES -->
-
-  <section
-    class="page"
-    id="page-favorites">
-
-    <div class="hero">
-
-      <div class="hero-icon">
-        ⭐
-      </div>
-
-      <h1>
-        Favorites
-      </h1>
-
-      <p>
-        Your favorite games.
-      </p>
-
-    </div>
-
-
-    <div
-      class="game-grid"
-      id="favoriteGames">
-    </div>
-
-  </section>
-
-
-  <!-- RECENT -->
-
-  <section
-    class="page"
-    id="page-recent">
-
-    <div class="hero">
-
-      <div class="hero-icon">
-        🕘
-      </div>
-
-      <h1>
-        Recently Played
-      </h1>
-
-      <p>
-        Games you've recently opened.
-      </p>
-
-    </div>
-
-
-    <div
-      class="game-grid"
-      id="recentGames">
-    </div>
-
-  </section>
-
-
-  <!-- SETTINGS -->
-
-  <section
-    class="page"
-    id="page-settings">
-
-    <div class="hero">
-
-      <div class="hero-icon">
-        ⚙️
-      </div>
-
-      <h1>
-        Settings
-      </h1>
-
-      <p>
-        Customize your MyGames experience.
-      </p>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="setting-row">
-
+      <div class="topbar">
         <div>
+          <h1>MyGames</h1>
+          <p class="small-muted">Play games. Make games. Share games.</p>
+        </div>
+      </div>
 
-          <strong>
-            Dark Mode
-          </strong>
+      <div class="hero">
+        <h2>Welcome to MyGames 🎮</h2>
+        <p>
+          MyGames is your game hub inside the MyWorld ecosystem.
+          Play games, build your own games directly in your browser,
+          save your creations, and eventually publish them for other people to play.
+        </p>
 
-          <div class="setting-description">
-            Switch between light and dark themes.
+        <div class="hero-actions">
+          <button class="primary" id="playBtn">🎮 Browse Games</button>
+          <button class="secondary" id="createBtn">🛠️ Create a Game</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number" id="statGames">0</div>
+          <div class="stat-label">Games</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-number" id="statFavorites">0</div>
+          <div class="stat-label">Favorites</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-number" id="statPlayed">0</div>
+          <div class="stat-label">Played</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-number" id="statCreated">0</div>
+          <div class="stat-label">Created</div>
+        </div>
+      </div>
+
+      <div class="hero">
+        <h2>Build your own games</h2>
+        <p>
+          You don't need another program to start.
+          MyGames includes a built-in HTML game editor with starter templates.
+        </p>
+
+        <div class="hero-actions">
+          <button class="primary" id="homeCreate">🚀 Start Creating</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- LIBRARY -->
+    <section class="section" id="library">
+
+      <div class="topbar">
+        <div>
+          <h1>Game Library</h1>
+          <p class="small-muted">Find something to play.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="search">
+          <input id="searchInput" placeholder="Search games...">
+        </div>
+      </div>
+
+      <div class="category-buttons">
+        <button class="active" data-category="All">All</button>
+        <button data-category="Action">Action</button>
+        <button data-category="Adventure">Adventure</button>
+        <button data-category="Sandbox">Sandbox</button>
+        <button data-category="Puzzle">Puzzle</button>
+        <button data-category="Other">Other</button>
+        <button data-category="Community">Community</button>
+      </div>
+
+      <div class="game-grid" id="gameGrid"></div>
+
+    </section>
+
+    <!-- CREATOR -->
+    <section class="section" id="creator">
+
+      <div class="topbar">
+        <div>
+          <h1>Game Creator 🛠️</h1>
+          <p class="small-muted">Create your own browser game.</p>
+        </div>
+      </div>
+
+      <div class="creator-layout">
+
+        <div class="creator-panel">
+
+          <h2>Game Info</h2>
+
+          <div class="form">
+
+            <div>
+              <label>Game Title</label>
+              <input id="gameTitle" placeholder="My Awesome Game">
+            </div>
+
+            <div>
+              <label>Description</label>
+              <textarea id="gameDescription" placeholder="Describe your game..."></textarea>
+            </div>
+
+            <div>
+              <label>Category</label>
+              <select id="gameCategory">
+                <option>Action</option>
+                <option>Adventure</option>
+                <option>Sandbox</option>
+                <option>Puzzle</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Icon / Emoji</label>
+              <input id="gameIcon" value="🎮" maxlength="4">
+            </div>
+
+            <div>
+              <label>Start with a template</label>
+
+              <div class="template-grid">
+                <button class="template" data-template="clicker">🖱️ Clicker</button>
+                <button class="template" data-template="dodge">🏃 Dodge</button>
+                <button class="template" data-template="platformer">🟦 Platformer</button>
+                <button class="template" data-template="quiz">❓ Quiz</button>
+                <button class="template" data-template="blank">📄 Blank</button>
+              </div>
+            </div>
+
           </div>
 
         </div>
 
-        <button
-          class="toggle"
-          id="darkToggle"
-          onclick="toggleDarkMode()">
+        <div class="editor-panel">
+
+          <h2>Game Code</h2>
+
+          <textarea
+            id="codeEditor"
+            class="editor-area"
+            spellcheck="false"
+            placeholder="Your game HTML will go here..."
+          ></textarea>
+
+          <p class="code-help">
+            This editor lets you make games with HTML, CSS and JavaScript.
+            Use the templates above if you're just getting started.
+          </p>
+
+          <div class="creator-buttons">
+            <button class="primary" id="testGame">▶️ Test Game</button>
+            <button class="primary" id="saveGame">💾 Save Game</button>
+            <button class="secondary" id="newGame">📄 New Game</button>
+            <button class="secondary" id="exportGame">📤 Export</button>
+            <button class="secondary" id="importGame">📥 Import</button>
+            <input type="file" id="importFile" accept=".html,.htm" hidden>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="preview-panel">
+        <h2>Game Preview</h2>
+        <iframe
+          id="previewFrame"
+          class="preview-frame"
+          sandbox="allow-scripts"
+          title="Game preview"
+        ></iframe>
+      </div>
+
+    </section>
+
+    <!-- MY GAMES -->
+    <section class="section" id="mygames">
+
+      <div class="topbar">
+        <div>
+          <h1>My Games 📦</h1>
+          <p class="small-muted">Games you've created on this device.</p>
+        </div>
+      </div>
+
+      <div class="saved-list" id="savedList"></div>
+
+    </section>
+
+    <!-- FAVORITES -->
+    <section class="section" id="favorites">
+
+      <div class="topbar">
+        <div>
+          <h1>Favorites ⭐</h1>
+          <p class="small-muted">Games you've marked as favorites.</p>
+        </div>
+      </div>
+
+      <div class="game-grid" id="favoriteGrid"></div>
+
+    </section>
+
+    <!-- RECENT -->
+    <section class="section" id="recent">
+
+      <div class="topbar">
+        <div>
+          <h1>Recently Played 🕘</h1>
+          <p class="small-muted">Your latest games.</p>
+        </div>
+      </div>
+
+      <div class="game-grid" id="recentGrid"></div>
+
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="section" id="settings">
+
+      <div class="topbar">
+        <div>
+          <h1>Settings ⚙️</h1>
+          <p class="small-muted">Customize MyGames.</p>
+        </div>
+      </div>
+
+      <div class="setting-card">
+        <h3>🌙 Appearance</h3>
+        <p>Switch between light and dark mode using the button at the bottom of the sidebar.</p>
+      </div>
+
+      <div class="setting-card">
+        <h3>💾 Game Storage</h3>
+        <p>
+          Games created in this version are saved in this browser using local storage.
+          Export your games if you want to move them to another device.
+        </p>
+      </div>
+
+      <div class="setting-card">
+        <h3>🌎 MyWorld</h3>
+        <p>Return to your central MyWorld dashboard.</p>
+        <br>
+        <button class="primary" id="myWorldBtn">🌎 Back to MyWorld</button>
+      </div>
+
+      <div class="setting-card">
+        <h3>⚠️ Reset MyGames</h3>
+        <p>This deletes your locally saved created games, favorites, and recently played history.</p>
+        <br>
+        <button class="danger" id="resetBtn">Reset MyGames</button>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<!-- PLAY MODAL -->
+<div class="modal" id="playModal">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2 id="modalTitle">Game</h2>
+      <button class="close" id="closeModal">×</button>
+    </div>
+
+    <iframe
+      id="modalFrame"
+      class="preview-frame"
+      sandbox="allow-scripts"
+      title="Playing game"
+    ></iframe>
+
+  </div>
+</div>
+
+<script>
+/* =========================
+   DATA
+========================= */
+
+const builtInGames = [
+  {
+    id:"blockweb",
+    title:"BlockWeb",
+    description:"Build and explore a block-based browser world.",
+    category:"Sandbox",
+    icon:"🧱",
+    url:"https://lazerman202.github.io/BlockWeb/",
+    builtIn:true
+  },
+  {
+    id:"mychat",
+    title:"MyChat",
+    description:"A communication platform from the MyWorld ecosystem.",
+    category:"Other",
+    icon:"💬",
+    url:"https://lazerman202.github.io/MyChat/",
+    builtIn:true
+  },
+  {
+    id:"mygame1",
+    title:"MyGame 1",
+    description:"A future MyGames title.",
+    category:"Adventure",
+    icon:"🚧",
+    comingSoon:true,
+    builtIn:true
+  },
+  {
+    id:"mygame2",
+    title:"MyGame 2",
+    description:"Another game coming to MyGames.",
+    category:"Action",
+    icon:"🚧",
+    comingSoon:true,
+    builtIn:true
+  },
+  {
+    id:"puzzle",
+    title:"Puzzle Game",
+    description:"A future puzzle experience.",
+    category:"Puzzle",
+    icon:"🧩",
+    comingSoon:true,
+    builtIn:true
+  }
+];
+
+const templates = {
+
+clicker: `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Clicker Game</title>
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#111827;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  text-align:center;
+}
+.box{
+  background:#1f2937;
+  padding:35px;
+  border-radius:20px;
+}
+button{
+  font-size:25px;
+  padding:20px 40px;
+  border:0;
+  border-radius:12px;
+  cursor:pointer;
+}
+#score{
+  font-size:45px;
+  margin:20px;
+}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>🖱️ Clicker Game</h1>
+<div id="score">0</div>
+<button id="click">CLICK!</button>
+</div>
+
+<script>
+let score=0;
+document.getElementById("click").onclick=()=>{
+  score++;
+  document.getElementById("score").textContent=score;
+};
+<\/script>
+</body>
+</html>`,
+
+dodge: `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dodge</title>
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:#111;
+  color:white;
+  font-family:Arial;
+}
+#player{
+  position:absolute;
+  width:45px;
+  height:45px;
+  background:#4ade80;
+  bottom:25px;
+  left:50%;
+}
+.enemy{
+  position:absolute;
+  width:35px;
+  height:35px;
+  background:#ef4444;
+  top:0;
+}
+#score{
+  position:fixed;
+  top:15px;
+  left:15px;
+  font-size:22px;
+}
+</style>
+</head>
+<body>
+<div id="score">Score: 0</div>
+<div id="player"></div>
+
+<script>
+const player=document.getElementById("player");
+let x=window.innerWidth/2;
+let score=0;
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft") x-=25;
+  if(e.key==="ArrowRight") x+=25;
+  x=Math.max(0,Math.min(window.innerWidth-45,x));
+  player.style.left=x+"px";
+});
+
+setInterval(()=>{
+  const enemy=document.createElement("div");
+  enemy.className="enemy";
+  enemy.style.left=Math.random()*(window.innerWidth-35)+"px";
+  document.body.appendChild(enemy);
+
+  let y=0;
+
+  const timer=setInterval(()=>{
+    y+=5;
+    enemy.style.top=y+"px";
+
+    const a=enemy.getBoundingClientRect();
+    const b=player.getBoundingClientRect();
+
+    if(a.bottom>b.top && a.top<b.bottom && a.right>b.left && a.left<b.right){
+      alert("Game Over! Score: "+score);
+      location.reload();
+    }
+
+    if(y>window.innerHeight){
+      clearInterval(timer);
+      enemy.remove();
+      score++;
+      document.getElementById("score").textContent="Score: "+score;
+    }
+  },30);
+},800);
+<\/script>
+</body>
+</html>`,
+
+platformer: `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Platformer</title>
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:#87ceeb;
+  font-family:Arial;
+}
+#player{
+  position:absolute;
+  width:35px;
+  height:35px;
+  background:#2563eb;
+  left:80px;
+  bottom:100px;
+}
+.platform{
+  position:absolute;
+  height:25px;
+  background:#166534;
+}
+#p1{left:0;bottom:50px;width:100%}
+#p2{left:300px;bottom:170px;width:180px}
+#p3{left:550px;bottom:280px;width:180px}
+</style>
+</head>
+<body>
+
+<div id="player"></div>
+<div class="platform" id="p1"></div>
+<div class="platform" id="p2"></div>
+<div class="platform" id="p3"></div>
+
+<script>
+const player=document.getElementById("player");
+let x=80;
+let y=100;
+let vx=0;
+let vy=0;
+let left=false;
+let right=false;
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft")left=true;
+  if(e.key==="ArrowRight")right=true;
+  if(e.key==="ArrowUp" && y<=105)vy=12;
+});
+
+document.addEventListener("keyup",e=>{
+  if(e.key==="ArrowLeft")left=false;
+  if(e.key==="ArrowRight")right=false;
+});
+
+function loop(){
+  if(left)vx=-4;
+  else if(right)vx=4;
+  else vx=0;
+
+  x+=vx;
+  vy-=0.5;
+  y+=vy;
+
+  if(y<100){
+    y=100;
+    vy=0;
+  }
+
+  x=Math.max(0,Math.min(window.innerWidth-35,x));
+
+  player.style.left=x+"px";
+  player.style.bottom=y+"px";
+
+  requestAnimationFrame(loop);
+}
+
+loop();
+<\/script>
+</body>
+</html>`,
+
+quiz: `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Quiz</title>
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#eef2ff;
+  font-family:Arial;
+}
+.box{
+  background:white;
+  padding:30px;
+  border-radius:18px;
+  width:min(500px,90%);
+  text-align:center;
+}
+button{
+  display:block;
+  width:100%;
+  margin:10px 0;
+  padding:13px;
+  border:0;
+  border-radius:9px;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>❓ Quiz</h1>
+<h2 id="question">What is 2 + 2?</h2>
+<button onclick="answer(4)">4</button>
+<button onclick="answer(5)">5</button>
+<button onclick="answer(6)">6</button>
+<p id="result"></p>
+</div>
+
+<script>
+function answer(n){
+  document.getElementById("result").textContent=
+    n===4 ? "Correct! 🎉" : "Not quite!";
+}
+<\/script>
+</body>
+</html>`,
+
+blank: `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Game</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:40px;
+}
+
+button{
+  padding:12px 20px;
+  border:0;
+  border-radius:8px;
+  cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>My Game</h1>
+<p>Start building your game!</p>
+
+<button onclick="alert('Hello from my game!')">
+  Click Me
+</button>
+
+<script>
+
+<\/script>
+
+</body>
+</html>`
+};
+
+/* =========================
+   STATE
+========================= */
+
+let createdGames=JSON.parse(localStorage.getItem("mygames_created")||"[]");
+let favorites=JSON.parse(localStorage.getItem("mygames_favorites")||"[]");
+let recent=JSON.parse(localStorage.getItem("mygames_recent")||"[]");
+
+let currentCategory="All";
+let editingId=null;
+
+/* =========================
+   NAVIGATION
+========================= */
+
+const sections=document.querySelectorAll(".section");
+const navButtons=document.querySelectorAll(".nav button[data-page]");
+
+function showPage(page){
+  sections.forEach(s=>s.classList.remove("active"));
+
+  const target=document.getElementById(page);
+
+  if(target)target.classList.add("active");
+
+  navButtons.forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.page===page);
+  });
+
+  if(page==="library")renderLibrary();
+  if(page==="favorites")renderFavorites();
+  if(page==="recent")renderRecent();
+  if(page==="mygames")renderMyGames();
+
+  document.getElementById("sidebar").classList.remove("open");
+}
+
+navButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    showPage(btn.dataset.page);
+  });
+});
+
+document.getElementById("mobileMenu").addEventListener("click",()=>{
+  document.getElementById("sidebar").classList.toggle("open");
+});
+
+document.getElementById("playBtn").onclick=()=>showPage("library");
+document.getElementById("createBtn").onclick=()=>showPage("creator");
+document.getElementById("homeCreate").onclick=()=>showPage("creator");
+
+/* =========================
+   ALL GAMES
+========================= */
+
+function allGames(){
+  return [
+    ...builtInGames,
+    ...createdGames.map(g=>({
+      ...g,
+      builtIn:false
+    }))
+  ];
+}
+
+/* =========================
+   LIBRARY
+========================= */
+
+function renderLibrary(){
+
+  const grid=document.getElementById("gameGrid");
+  const search=document.getElementById("searchInput").value.toLowerCase();
+
+  let games=allGames();
+
+  games=games.filter(game=>{
+    const categoryMatch=
+      currentCategory==="All" ||
+      game.category===currentCategory;
+
+    const searchMatch=
+      game.title.toLowerCase().includes(search) ||
+      game.description.toLowerCase().includes(search);
+
+    return categoryMatch && searchMatch;
+  });
+
+  grid.innerHTML="";
+
+  if(!games.length){
+    grid.innerHTML=
+      `<div class="empty">
+        <h2>No games found</h2>
+        <p>Try another search or make your own game.</p>
+      </div>`;
+    return;
+  }
+
+  games.forEach(game=>{
+    grid.appendChild(createGameCard(game));
+  });
+}
+
+function createGameCard(game){
+
+  const card=document.createElement("div");
+  card.className="game-card";
+
+  const isFav=favorites.includes(game.id);
+
+  card.innerHTML=`
+    <div class="game-icon">${escapeHTML(game.icon||"🎮")}</div>
+
+    <div class="game-body">
+
+      <h3>${escapeHTML(game.title)}</h3>
+
+      <p>${escapeHTML(game.description||"No description.")}</p>
+
+      <div class="game-meta">
+        <span>${escapeHTML(game.category||"Other")}</span>
+        <span>${game.builtIn?"MyGames":"Community"}</span>
+      </div>
+
+      <div class="game-actions">
+
+        ${
+          game.comingSoon
+          ? `<button class="secondary" disabled>🚧 Soon</button>`
+          : `<button class="primary play-game">▶️ Play</button>`
+        }
+
+        <button class="secondary favorite-game">
+          ${isFav?"⭐":"☆"}
         </button>
 
       </div>
 
-
-      <div class="setting-row">
-
-        <div>
-
-          <strong>
-            Game Count
-          </strong>
-
-          <div class="setting-description">
-            Games currently available in MyGames.
-          </div>
-
-        </div>
-
-        <strong id="settingsGameCount">
-          0
-        </strong>
-
-      </div>
-
     </div>
+  `;
 
-  </section>
+  const play=card.querySelector(".play-game");
 
-</main>
-
-
-<script>
-
-/* =========================================
-   GAME DATA
-========================================= */
-
-const games = [
-
-  {
-    id:"blockweb",
-    name:"BlockWeb",
-    icon:"🧱",
-    category:"Sandbox",
-    description:
-      "Build and explore your browser-based block world.",
-    url:
-      "https://lazerman202.github.io/BlockWeb/"
-  },
-
-  {
-    id:"mychat",
-    name:"MyChat",
-    icon:"💬",
-    category:"Other",
-    description:
-      "Your communication platform.",
-    url:
-      "https://lazerman202.github.io/MyChat/"
-  },
-
-  {
-    id:"coming1",
-    name:"MyGame 1",
-    icon:"🎮",
-    category:"Action",
-    description:
-      "A future game for your collection.",
-    url:"#"
-  },
-
-  {
-    id:"coming2",
-    name:"MyGame 2",
-    icon:"🕹️",
-    category:"Adventure",
-    description:
-      "Another game coming to MyGames.",
-    url:"#"
-  },
-
-  {
-    id:"coming3",
-    name:"Puzzle Game",
-    icon:"🧩",
-    category:"Puzzle",
-    description:
-      "A future puzzle game.",
-    url:"#"
+  if(play){
+    play.onclick=()=>playGame(game);
   }
 
-];
-
-
-/* =========================================
-   STATE
-========================================= */
-
-let currentCategory = "All";
-
-let favorites =
-  JSON.parse(
-    localStorage.getItem("mygamesFavorites") || "[]"
-  );
-
-let recentlyPlayed =
-  JSON.parse(
-    localStorage.getItem("mygamesRecent") || "[]"
-  );
-
-
-/* =========================================
-   DARK MODE
-========================================= */
-
-if(
-  localStorage.getItem("mygamesDark") === "true"
-){
-  document.body.classList.add("dark");
-}
-
-updateDarkToggle();
-
-
-function toggleDarkMode(){
-
-  document.body.classList.toggle("dark");
-
-  localStorage.setItem(
-    "mygamesDark",
-    document.body.classList.contains("dark")
-  );
-
-  updateDarkToggle();
-
-}
-
-
-function updateDarkToggle(){
-
-  const toggle =
-    document.getElementById("darkToggle");
-
-  if(toggle){
-
-    toggle.classList.toggle(
-      "on",
-      document.body.classList.contains("dark")
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   NAVIGATION
-========================================= */
-
-function showPage(page,button){
-
-  document
-    .querySelectorAll(".page")
-    .forEach(p=>{
-      p.classList.remove("active");
-    });
-
-
-  const target =
-    document.getElementById(
-      "page-" + page
-    );
-
-
-  if(target){
-    target.classList.add("active");
-  }
-
-
-  document
-    .querySelectorAll(".nav button")
-    .forEach(b=>{
-      b.classList.remove("active");
-    });
-
-
-  if(button){
-    button.classList.add("active");
-  }
-
-
-  if(page === "library"){
-    renderLibrary();
-  }
-
-  if(page === "favorites"){
-    renderFavorites();
-  }
-
-  if(page === "recent"){
-    renderRecent();
-  }
-
-
-  if(window.innerWidth <= 800){
-    document
-      .getElementById("sidebar")
-      .classList.remove("open");
-  }
-
-}
-
-
-/* =========================================
-   MOBILE SIDEBAR
-========================================= */
-
-function toggleSidebar(){
-
-  document
-    .getElementById("sidebar")
-    .classList.toggle("open");
-
-}
-
-
-/* =========================================
-   GAME CARD
-========================================= */
-
-function createGameCard(game){
-
-  const card =
-    document.createElement("div");
-
-  card.className =
-    "card game-card";
-
-
-  const banner =
-    document.createElement("div");
-
-  banner.className =
-    "game-banner";
-
-  banner.textContent =
-    game.icon;
-
-
-  const info =
-    document.createElement("div");
-
-  info.className =
-    "game-info";
-
-
-  const title =
-    document.createElement("h3");
-
-  title.textContent =
-    game.name;
-
-
-  const description =
-    document.createElement("p");
-
-  description.textContent =
-    game.description;
-
-
-  const buttons =
-    document.createElement("div");
-
-  buttons.className =
-    "game-buttons";
-
-
-  const play =
-    document.createElement("button");
-
-  play.className =
-    "primary";
-
-  play.textContent =
-    game.url === "#"
-      ? "Coming Soon"
-      : "Open";
-
-
-  play.onclick = function(){
-
-    openGame(game);
-
-  };
-
-
-  const favorite =
-    document.createElement("button");
-
-  favorite.className =
-    "secondary";
-
-  favorite.textContent =
-    favorites.includes(game.id)
-      ? "★"
-      : "☆";
-
-  favorite.title =
-    favorites.includes(game.id)
-      ? "Remove from favorites"
-      : "Add to favorites";
-
-
-  favorite.onclick = function(){
-
+  card.querySelector(".favorite-game").onclick=()=>{
     toggleFavorite(game.id);
-
   };
-
-
-  buttons.appendChild(play);
-
-  buttons.appendChild(favorite);
-
-  info.appendChild(title);
-
-  info.appendChild(description);
-
-  info.appendChild(buttons);
-
-  card.appendChild(banner);
-
-  card.appendChild(info);
 
   return card;
-
 }
 
-
-/* =========================================
-   FEATURED
-========================================= */
-
-function renderFeatured(){
-
-  const container =
-    document.getElementById(
-      "featuredGames"
-    );
-
-  container.innerHTML = "";
-
-
-  games
-    .slice(0,4)
-    .forEach(game=>{
-
-      container.appendChild(
-        createGameCard(game)
-      );
-
-    });
-
-}
-
-
-/* =========================================
-   LIBRARY
-========================================= */
-
-function renderLibrary(){
-
-  const container =
-    document.getElementById(
-      "libraryGames"
-    );
-
-  const search =
-    (
-      document.getElementById(
-        "searchInput"
-      ).value || ""
-    ).toLowerCase();
-
-
-  container.innerHTML = "";
-
-
-  const filtered =
-    games.filter(game=>{
-
-      const categoryMatch =
-        currentCategory === "All" ||
-        game.category === currentCategory;
-
-
-      const searchMatch =
-        game.name
-          .toLowerCase()
-          .includes(search) ||
-        game.description
-          .toLowerCase()
-          .includes(search);
-
-
-      return categoryMatch && searchMatch;
-
-    });
-
-
-  if(filtered.length === 0){
-
-    container.innerHTML =
-      '<div class="card empty">No games found.</div>';
-
-    return;
-
-  }
-
-
-  filtered.forEach(game=>{
-
-    container.appendChild(
-      createGameCard(game)
-    );
-
-  });
-
-}
-
-
-/* =========================================
-   CATEGORY
-========================================= */
-
-function setCategory(category,button){
-
-  currentCategory =
-    category;
-
-
-  document
-    .querySelectorAll(".category")
-    .forEach(b=>{
-      b.classList.remove("active");
-    });
-
-
-  button.classList.add("active");
-
-  renderLibrary();
-
-}
-
-
-/* =========================================
+/* =========================
    FAVORITES
-========================================= */
+========================= */
 
 function toggleFavorite(id){
 
   if(favorites.includes(id)){
-
-    favorites =
-      favorites.filter(
-        item=>item !== id
-      );
-
+    favorites=favorites.filter(x=>x!==id);
   }else{
-
     favorites.push(id);
-
   }
 
-
   localStorage.setItem(
-    "mygamesFavorites",
+    "mygames_favorites",
     JSON.stringify(favorites)
   );
 
-
   updateStats();
-
-  renderFeatured();
-
   renderLibrary();
-
   renderFavorites();
-
 }
-
 
 function renderFavorites(){
 
-  const container =
-    document.getElementById(
-      "favoriteGames"
-    );
+  const grid=document.getElementById("favoriteGrid");
 
-  container.innerHTML = "";
+  const games=allGames()
+    .filter(g=>favorites.includes(g.id));
 
+  grid.innerHTML="";
 
-  const favoriteGames =
-    games.filter(
-      game=>favorites.includes(game.id)
-    );
-
-
-  if(favoriteGames.length === 0){
-
-    container.innerHTML =
-      '<div class="card empty">You have no favorite games yet.<br><br>Tap ☆ on a game to add it.</div>';
-
+  if(!games.length){
+    grid.innerHTML=
+      `<div class="empty">
+        <h2>No favorites yet ⭐</h2>
+        <p>Favorite games from the library and they'll appear here.</p>
+      </div>`;
     return;
-
   }
 
-
-  favoriteGames.forEach(game=>{
-
-    container.appendChild(
-      createGameCard(game)
-    );
-
+  games.forEach(game=>{
+    grid.appendChild(createGameCard(game));
   });
-
 }
 
+/* =========================
+   RECENT
+========================= */
 
-/* =========================================
-   RECENTLY PLAYED
-========================================= */
+function playGame(game){
 
-function openGame(game){
+  if(game.comingSoon)return;
 
-  if(game.url === "#"){
+  recent=recent.filter(id=>id!==game.id);
+  recent.unshift(game.id);
 
-    alert(
-      game.name +
-      " is coming soon!"
-    );
-
-    return;
-
-  }
-
-
-  recentlyPlayed =
-    recentlyPlayed.filter(
-      id=>id !== game.id
-    );
-
-
-  recentlyPlayed.unshift(
-    game.id
-  );
-
-
-  recentlyPlayed =
-    recentlyPlayed.slice(0,10);
-
+  recent=recent.slice(0,20);
 
   localStorage.setItem(
-    "mygamesRecent",
-    JSON.stringify(recentlyPlayed)
+    "mygames_recent",
+    JSON.stringify(recent)
   );
-
 
   updateStats();
 
+  if(game.builtIn && game.url){
+    window.open(game.url,"_blank");
+    return;
+  }
 
-  window.location.href =
-    game.url;
+  document.getElementById("playModal").classList.add("show");
 
+  document.getElementById("modalTitle").textContent=game.title;
+
+  document.getElementById("modalFrame").srcdoc=game.code||"";
 }
-
 
 function renderRecent(){
 
-  const container =
-    document.getElementById(
-      "recentGames"
-    );
+  const grid=document.getElementById("recentGrid");
 
-  container.innerHTML = "";
+  const games=recent
+    .map(id=>allGames().find(g=>g.id===id))
+    .filter(Boolean);
 
+  grid.innerHTML="";
 
-  const recentGames =
-    recentlyPlayed
-      .map(id=>
-        games.find(
-          game=>game.id === id
-        )
-      )
-      .filter(Boolean);
-
-
-  if(recentGames.length === 0){
-
-    container.innerHTML =
-      '<div class="card empty">You haven\'t played anything yet.</div>';
-
+  if(!games.length){
+    grid.innerHTML=
+      `<div class="empty">
+        <h2>Nothing played yet</h2>
+        <p>Games you play will appear here.</p>
+      </div>`;
     return;
-
   }
 
+  games.forEach(game=>{
+    grid.appendChild(createGameCard(game));
+  });
+}
 
-  recentGames.forEach(game=>{
+/* =========================
+   MY GAMES
+========================= */
 
-    container.appendChild(
-      createGameCard(game)
-    );
+function renderMyGames(){
+
+  const list=document.getElementById("savedList");
+
+  list.innerHTML="";
+
+  if(!createdGames.length){
+
+    list.innerHTML=`
+      <div class="empty">
+        <h2>You haven't created any games yet.</h2>
+        <p>Go to Create Game and make your first one!</p>
+        <br>
+        <button class="primary" onclick="showPage('creator')">
+          🛠️ Create Game
+        </button>
+      </div>
+    `;
+
+    return;
+  }
+
+  createdGames.forEach(game=>{
+
+    const item=document.createElement("div");
+    item.className="saved-item";
+
+    item.innerHTML=`
+      <div class="saved-info">
+        <h3>${escapeHTML(game.icon||"🎮")} ${escapeHTML(game.title)}</h3>
+        <p>${escapeHTML(game.description||"No description.")} · ${escapeHTML(game.category)}</p>
+      </div>
+
+      <div class="saved-actions">
+        <button class="primary play">▶️ Play</button>
+        <button class="secondary edit">✏️ Edit</button>
+        <button class="secondary export">📤 Export</button>
+        <button class="danger delete">🗑️ Delete</button>
+      </div>
+    `;
+
+    item.querySelector(".play").onclick=()=>{
+      playGame(game);
+    };
+
+    item.querySelector(".edit").onclick=()=>{
+      editGame(game);
+    };
+
+    item.querySelector(".export").onclick=()=>{
+      exportSpecificGame(game);
+    };
+
+    item.querySelector(".delete").onclick=()=>{
+      deleteGame(game.id);
+    };
+
+    list.appendChild(item);
+  });
+}
+
+/* =========================
+   CREATOR
+========================= */
+
+const titleInput=document.getElementById("gameTitle");
+const descriptionInput=document.getElementById("gameDescription");
+const categoryInput=document.getElementById("gameCategory");
+const iconInput=document.getElementById("gameIcon");
+const codeEditor=document.getElementById("codeEditor");
+
+document.querySelectorAll(".template").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    const type=btn.dataset.template;
+
+    codeEditor.value=templates[type];
+
+    if(!titleInput.value.trim()){
+      const names={
+        clicker:"My Clicker",
+        dodge:"Dodge!",
+        platformer:"My Platformer",
+        quiz:"My Quiz",
+        blank:"My Game"
+      };
+
+      titleInput.value=names[type]||"My Game";
+    }
+
+    if(type==="clicker")iconInput.value="🖱️";
+    if(type==="dodge")iconInput.value="🏃";
+    if(type==="platformer")iconInput.value="🟦";
+    if(type==="quiz")iconInput.value="❓";
+    if(type==="blank")iconInput.value="🎮";
+
+    previewGame();
 
   });
 
+});
+
+function newGame(){
+
+  editingId=null;
+
+  titleInput.value="";
+  descriptionInput.value="";
+  categoryInput.value="Action";
+  iconInput.value="🎮";
+  codeEditor.value=templates.blank;
+
+  document.getElementById("saveGame").textContent="💾 Save Game";
+
+  previewGame();
 }
 
+document.getElementById("newGame").onclick=newGame;
 
-/* =========================================
+function previewGame(){
+
+  document.getElementById("previewFrame").srcdoc=
+    codeEditor.value || "<h1>No code yet.</h1>";
+}
+
+document.getElementById("testGame").onclick=previewGame;
+
+function saveGame(){
+
+  const title=titleInput.value.trim();
+  const description=descriptionInput.value.trim();
+  const code=codeEditor.value.trim();
+
+  if(!title){
+    alert("Give your game a title first.");
+    titleInput.focus();
+    return;
+  }
+
+  if(!code){
+    alert("Add some game code first.");
+    codeEditor.focus();
+    return;
+  }
+
+  if(editingId){
+
+    const index=createdGames.findIndex(g=>g.id===editingId);
+
+    if(index!==-1){
+
+      createdGames[index]={
+        ...createdGames[index],
+        title,
+        description,
+        category:categoryInput.value,
+        icon:iconInput.value||"🎮",
+        code,
+        updatedAt:Date.now()
+      };
+
+    }
+
+  }else{
+
+    const game={
+      id:"user_"+Date.now()+"_"+Math.random().toString(36).slice(2),
+      title,
+      description,
+      category:categoryInput.value,
+      icon:iconInput.value||"🎮",
+      code,
+      createdAt:Date.now(),
+      updatedAt:Date.now()
+    };
+
+    createdGames.unshift(game);
+    editingId=game.id;
+
+  }
+
+  localStorage.setItem(
+    "mygames_created",
+    JSON.stringify(createdGames)
+  );
+
+  document.getElementById("saveGame").textContent="💾 Saved!";
+
+  updateStats();
+  renderMyGames();
+  renderLibrary();
+
+  setTimeout(()=>{
+    document.getElementById("saveGame").textContent="💾 Save Game";
+  },1200);
+}
+
+document.getElementById("saveGame").onclick=saveGame;
+
+function editGame(game){
+
+  editingId=game.id;
+
+  titleInput.value=game.title;
+  descriptionInput.value=game.description||"";
+  categoryInput.value=game.category||"Other";
+  iconInput.value=game.icon||"🎮";
+  codeEditor.value=game.code||"";
+
+  document.getElementById("saveGame").textContent="💾 Update Game";
+
+  showPage("creator");
+  previewGame();
+}
+
+function deleteGame(id){
+
+  const game=createdGames.find(g=>g.id===id);
+
+  if(!game)return;
+
+  if(!confirm(`Delete "${game.title}"?`))return;
+
+  createdGames=createdGames.filter(g=>g.id!==id);
+
+  favorites=favorites.filter(x=>x!==id);
+  recent=recent.filter(x=>x!==id);
+
+  localStorage.setItem(
+    "mygames_created",
+    JSON.stringify(createdGames)
+  );
+
+  localStorage.setItem(
+    "mygames_favorites",
+    JSON.stringify(favorites)
+  );
+
+  localStorage.setItem(
+    "mygames_recent",
+    JSON.stringify(recent)
+  );
+
+  updateStats();
+  renderMyGames();
+  renderLibrary();
+}
+
+/* =========================
+   EXPORT / IMPORT
+========================= */
+
+function exportGame(){
+
+  const title=titleInput.value.trim()||"my-game";
+  const code=codeEditor.value;
+
+  if(!code.trim()){
+    alert("There is no game code to export.");
+    return;
+  }
+
+  downloadFile(
+    title.replace(/[^a-z0-9]/gi,"-").toLowerCase()+".html",
+    code,
+    "text/html"
+  );
+}
+
+document.getElementById("exportGame").onclick=exportGame;
+
+function exportSpecificGame(game){
+
+  downloadFile(
+    game.title.replace(/[^a-z0-9]/gi,"-").toLowerCase()+".html",
+    game.code,
+    "text/html"
+  );
+}
+
+function downloadFile(filename,content,type){
+
+  const blob=new Blob([content],{type});
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download=filename;
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById("importGame").onclick=()=>{
+  document.getElementById("importFile").click();
+};
+
+document.getElementById("importFile").addEventListener("change",event=>{
+
+  const file=event.target.files[0];
+
+  if(!file)return;
+
+  const reader=new FileReader();
+
+  reader.onload=()=>{
+    codeEditor.value=reader.result;
+
+    if(!titleInput.value){
+      titleInput.value=file.name.replace(/\.[^/.]+$/,"");
+    }
+
+    previewGame();
+  };
+
+  reader.readAsText(file);
+
+  event.target.value="";
+});
+
+/* =========================
+   MODAL
+========================= */
+
+document.getElementById("closeModal").onclick=()=>{
+  document.getElementById("playModal").classList.remove("show");
+  document.getElementById("modalFrame").srcdoc="";
+};
+
+document.getElementById("playModal").addEventListener("click",e=>{
+
+  if(e.target.id==="playModal"){
+    document.getElementById("playModal").classList.remove("show");
+    document.getElementById("modalFrame").srcdoc="";
+  }
+
+});
+
+/* =========================
+   SEARCH / FILTER
+========================= */
+
+document.getElementById("searchInput").addEventListener(
+  "input",
+  renderLibrary
+);
+
+document.querySelectorAll(".category-buttons button").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    currentCategory=btn.dataset.category;
+
+    document
+      .querySelectorAll(".category-buttons button")
+      .forEach(b=>b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    renderLibrary();
+
+  });
+
+});
+
+/* =========================
+   THEME
+========================= */
+
+function applyTheme(){
+
+  const dark=localStorage.getItem("mygames_dark")==="true";
+
+  document.body.classList.toggle("dark",dark);
+
+  document.getElementById("themeBtn").textContent=
+    dark ? "☀️ Light Mode" : "🌙 Dark Mode";
+}
+
+document.getElementById("themeBtn").onclick=()=>{
+
+  const dark=
+    localStorage.getItem("mygames_dark")==="true";
+
+  localStorage.setItem("mygames_dark",String(!dark));
+
+  applyTheme();
+};
+
+applyTheme();
+
+/* =========================
+   MYWORLD
+========================= */
+
+document.getElementById("myWorldBtn").onclick=()=>{
+  window.location.href="https://lazerman202.github.io/MyWorld/";
+};
+
+/* =========================
+   RESET
+========================= */
+
+document.getElementById("resetBtn").onclick=()=>{
+
+  if(!confirm("Reset all MyGames data on this device?"))return;
+
+  localStorage.removeItem("mygames_created");
+  localStorage.removeItem("mygames_favorites");
+  localStorage.removeItem("mygames_recent");
+
+  createdGames=[];
+  favorites=[];
+  recent=[];
+
+  newGame();
+  updateStats();
+  renderLibrary();
+  renderMyGames();
+  renderFavorites();
+  renderRecent();
+
+  alert("MyGames has been reset.");
+};
+
+/* =========================
    STATS
-========================================= */
+========================= */
 
 function updateStats(){
 
-  document.getElementById(
-    "totalGames"
-  ).textContent =
-    games.length;
+  document.getElementById("statGames").textContent=
+    allGames().length;
 
-
-  document.getElementById(
-    "favoriteCount"
-  ).textContent =
+  document.getElementById("statFavorites").textContent=
     favorites.length;
 
+  document.getElementById("statPlayed").textContent=
+    recent.length;
 
-  document.getElementById(
-    "recentCount"
-  ).textContent =
-    recentlyPlayed.length;
-
-
-  document.getElementById(
-    "settingsGameCount"
-  ).textContent =
-    games.length;
-
+  document.getElementById("statCreated").textContent=
+    createdGames.length;
 }
 
+/* =========================
+   SAFETY / HTML DISPLAY
+========================= */
 
-/* =========================================
-   MYWORLD
-========================================= */
+function escapeHTML(value){
 
-function goToMyWorld(){
-
-  window.location.href =
-    "https://lazerman202.github.io/MyWorld/";
-
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
+/* =========================
+   STARTUP
+========================= */
 
-/* =========================================
-   START
-========================================= */
-
-renderFeatured();
-
-renderLibrary();
-
+newGame();
 updateStats();
+renderLibrary();
+renderMyGames();
+renderFavorites();
+renderRecent();
 
 </script>
 
